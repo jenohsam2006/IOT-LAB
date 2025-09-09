@@ -1,0 +1,31 @@
+#define TRIG 10
+#define ECHO 9
+long duration;
+int distance;
+int prevDistance = 0;
+int strideVariation = 0;
+void setup() {
+  pinMode(TRIG, OUTPUT);
+  pinMode(ECHO, INPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  digitalWrite(TRIG, LOW);
+  delayMicroseconds(2);
+  digitalWrite(TRIG, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(TRIG, LOW);
+  duration = pulseIn(ECHO, HIGH);
+  distance = duration * 0.034 / 2;
+  strideVariation = abs(distance - prevDistance);
+  Serial.print("Distance: ");
+  Serial.print(distance);
+  Serial.print(" cm | Variation: ");
+  Serial.print(strideVariation);
+  Serial.println(" cm");
+  if (strideVariation > 10) {
+    Serial.println("Irregular Gait Detected!");
+  }
+  prevDistance = distance;
+  delay(2000); 
+} 
