@@ -1,0 +1,19 @@
+const int PIR_PIN = 7;   
+const int LED_PIN = 5;   
+void setup() {
+  pinMode(PIR_PIN, INPUT);
+  pinMode(LED_PIN, OUTPUT);
+  Serial.begin(9600);
+}
+void loop() {
+  int motion = digitalRead(PIR_PIN);
+  if (motion == HIGH) {
+    Serial.println("Passenger movement detected on Platform 2");
+    digitalWrite(LED_PIN, HIGH);  
+  } 
+  else {
+    Serial.println("Platform clear.");
+    digitalWrite(LED_PIN, LOW);   
+  }
+  delay(500); 
+}
