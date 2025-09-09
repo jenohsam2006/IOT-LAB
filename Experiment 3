@@ -1,0 +1,23 @@
+const int lm35Pin = A0; 
+void setup() {
+  Serial.begin(9600);
+}
+void loop() {
+  int analogValue = analogRead(lm35Pin);
+  float voltage = analogValue * (5.0 / 1023.0);
+  float temperature = voltage * 100.0;
+  Serial.print("Current Temperature: ");
+  Serial.print(temperature);
+  Serial.println(" °C");
+  if (temperature < 30.0) {
+    Serial.println("BUZZER ALERT: A Temperature too LOW! ");
+  } 
+  else if (temperature > 70.0) {
+    Serial.println("BUZZER ALERT: Temperature too HIGH! ");
+  } 
+  else {
+    Serial.println("Status: Temperature is NORMAL.");
+  }
+  Serial.println("----------------------------");
+  delay(2000); 
+}
